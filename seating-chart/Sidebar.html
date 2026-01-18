@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Reset and Base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
+      font-size: 14px;
+      color: #202124;
+      background: #fff;
+      padding: 16px;
+      line-height: 1.5;
+    }
+
+    /* Typography */
+    h2 {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 16px;
+      color: #202124;
+    }
+
+    h3 {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: #5f6368;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: #5f6368;
+      margin-bottom: 4px;
+    }
+
+    /* Hidden utility */
+    .hidden {
+      display: none !important;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: #1967d2;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #1557b0;
+    }
+
+    .btn-secondary {
+      background: #f1f3f4;
+      color: #202124;
+    }
+
+    .btn-secondary:hover {
+      background: #e8eaed;
+    }
+
+    .btn-danger {
+      background: #ea4335;
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background: #d33828;
+    }
+
+    .btn-small {
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+
+    .btn-block {
+      width: 100%;
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Form Elements */
+    select, input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 10px 12px;
+      border: 2px solid #e8eaed;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: border-color 0.2s ease;
+    }
+
+    select:focus, input:focus {
+      outline: none;
+      border-color: #1967d2;
+    }
+
+    input[type="number"] {
+      width: 70px;
+    }
+
+    /* Sections */
+    .section {
+      margin-bottom: 20px;
+    }
+
+    .section-row {
+      display: flex;
+      gap: 12px;
+      align-items: flex-end;
+    }
+
+    .section-row > div {
+      flex: 1;
+    }
+
+    /* Status Messages */
+    .status {
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+
+    .status-info {
+      background: #e8f0fe;
+      color: #1967d2;
+    }
+
+    .status-success {
+      background: #e6f4ea;
+      color: #137333;
+    }
+
+    .status-warning {
+      background: #fef7e0;
+      color: #b06000;
+    }
+
+    .status-error {
+      background: #fce8e6;
+      color: #c5221f;
+    }
+
+    /* Navigation Tabs */
+    .nav-tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 16px;
+      border-bottom: 2px solid #e8eaed;
+      padding-bottom: 0;
+    }
+
+    .nav-tab {
+      padding: 10px 16px;
+      background: none;
+      border: none;
+      font-size: 13px;
+      font-weight: 500;
+      color: #5f6368;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: all 0.2s ease;
+    }
+
+    .nav-tab:hover {
+      color: #1967d2;
+    }
+
+    .nav-tab.active {
+      color: #1967d2;
+      border-bottom-color: #1967d2;
+    }
+
+    /* Template Grid */
+    .template-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .template-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 8px;
+      background: #f8f9fa;
+      border: 2px solid #e8eaed;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .template-btn:hover {
+      border-color: #1967d2;
+      background: #e8f0fe;
+    }
+
+    .template-btn.selected {
+      border-color: #1967d2;
+      background: #e8f0fe;
+    }
+
+    .template-icon {
+      font-size: 24px;
+      margin-bottom: 4px;
+    }
+
+    .template-name {
+      font-size: 11px;
+      font-weight: 500;
+      color: #5f6368;
+    }
+
+    /* Student Pool */
+    .student-pool {
+      background: #f8f9fa;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 16px;
+      min-height: 60px;
+    }
+
+    .student-pool h3 {
+      margin-bottom: 10px;
+    }
+
+    .student-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .student-chip {
+      padding: 6px 10px;
+      background: white;
+      border: 1px solid #e8eaed;
+      border-radius: 16px;
+      font-size: 12px;
+      cursor: grab;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .student-chip:hover {
+      border-color: #1967d2;
+      background: #e8f0fe;
+    }
+
+    .student-chip.dragging {
+      opacity: 0.5;
+    }
+
+    /* Seating Viewport */
+    .seating-viewport {
+      width: 100%;
+      height: 280px;
+      background: #f8f9fa;
+      border: 2px dashed #e8eaed;
+      border-radius: 8px;
+      position: relative;
+      overflow: auto;
+      margin-bottom: 16px;
+    }
+
+    .seating-canvas {
+      position: relative;
+      min-width: 100%;
+      min-height: 100%;
+    }
+
+    .front-label {
+      position: absolute;
+      top: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 10px;
+      font-weight: 500;
+      color: #9aa0a6;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Seats */
+    .seat {
+      position: absolute;
+      width: 48px;
+      height: 38px;
+      background: white;
+      border: 2px solid #e8eaed;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      overflow: hidden;
+      padding: 2px;
+      line-height: 1.2;
+    }
+
+    .seat.empty {
+      background: #f8f9fa;
+      border-style: dashed;
+      color: #9aa0a6;
+    }
+
+    .seat.filled {
+      background: #e8f0fe;
+      border-color: #1967d2;
+      color: #1967d2;
+      font-weight: 500;
+    }
+
+    .seat.drag-over {
+      border-color: #34a853;
+      background: #e6f4ea;
+      transform: scale(1.08);
+    }
+
+    .seat:hover {
+      transform: scale(1.05);
+    }
+
+    /* Action Buttons Row */
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .actions .btn {
+      flex: 1;
+      min-width: 80px;
+    }
+
+    /* Saved Configs List */
+    .config-list {
+      margin-top: 12px;
+    }
+
+    .config-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      background: #f8f9fa;
+      border-radius: 6px;
+      margin-bottom: 8px;
+    }
+
+    .config-info {
+      flex: 1;
+    }
+
+    .config-name {
+      font-weight: 500;
+      font-size: 13px;
+    }
+
+    .config-date {
+      font-size: 11px;
+      color: #5f6368;
+    }
+
+    .config-actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    /* Loading Spinner */
+    .loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: #5f6368;
+    }
+
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid #e8eaed;
+      border-top-color: #1967d2;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-right: 10px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 30px 20px;
+      color: #5f6368;
+    }
+
+    .empty-state-icon {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Tabs -->
+  <div class="nav-tabs">
+    <button class="nav-tab active" data-panel="setup" onclick="showPanel('setup')">Roster</button>
+    <button class="nav-tab" data-panel="editor" onclick="showPanel('editor')">Chart</button>
+    <button class="nav-tab" data-panel="saveLoad" onclick="showPanel('saveLoad')">Save/Load</button>
+  </div>
+
+  <!-- Status Message -->
+  <div id="statusMessage" class="status hidden"></div>
+
+  <!-- Panel 1: Setup -->
+  <div id="setupPanel" class="panel">
+    <h2>Load Student Roster</h2>
+
+    <div class="section">
+      <label for="columnSelect">Select column with student names</label>
+      <select id="columnSelect">
+        <option value="">Loading columns...</option>
+      </select>
+    </div>
+
+    <div class="section">
+      <button class="btn btn-primary btn-block" onclick="loadRoster()">Load Students</button>
+    </div>
+
+    <div id="rosterPreview" class="hidden">
+      <div class="status status-success">
+        <strong id="studentCount">0</strong> students loaded
+      </div>
+
+      <h3>Choose Room Layout</h3>
+      <div class="template-grid">
+        <div class="template-btn" data-template="rows" onclick="selectTemplate('rows')">
+          <span class="template-icon">&#9783;</span>
+          <span class="template-name">Rows</span>
+        </div>
+        <div class="template-btn" data-template="groups-4" onclick="selectTemplate('groups-4')">
+          <span class="template-icon">&#9638;</span>
+          <span class="template-name">Groups</span>
+        </div>
+        <div class="template-btn" data-template="u-shape" onclick="selectTemplate('u-shape')">
+          <span class="template-icon">&#8916;</span>
+          <span class="template-name">U-Shape</span>
+        </div>
+        <div class="template-btn" data-template="circle" onclick="selectTemplate('circle')">
+          <span class="template-icon">&#9675;</span>
+          <span class="template-name">Circle</span>
+        </div>
+        <div class="template-btn" data-template="custom" onclick="selectTemplate('custom')">
+          <span class="template-icon">&#8862;</span>
+          <span class="template-name">Custom</span>
+        </div>
+      </div>
+
+      <div id="templateOptions" class="section hidden">
+        <div class="section-row">
+          <div>
+            <label for="rowsInput">Rows</label>
+            <input type="number" id="rowsInput" value="5" min="1" max="10">
+          </div>
+          <div>
+            <label for="colsInput">Columns</label>
+            <input type="number" id="colsInput" value="6" min="1" max="10">
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <button class="btn btn-primary btn-block" onclick="createChart()">Create Seating Chart</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel 2: Editor -->
+  <div id="editorPanel" class="panel hidden">
+    <div class="student-pool">
+      <h3>Unassigned Students (<span id="unassignedCount">0</span>)</h3>
+      <div id="studentList" class="student-chips"></div>
+    </div>
+
+    <div class="seating-viewport">
+      <div class="seating-canvas" id="seatingCanvas">
+        <div class="front-label">Front of Room</div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-secondary" onclick="randomizeSeating()">Randomize</button>
+      <button class="btn btn-secondary" onclick="clearSeating()">Clear All</button>
+      <button class="btn btn-secondary" onclick="changeTemplate()">Template</button>
+    </div>
+  </div>
+
+  <!-- Panel 3: Save/Load -->
+  <div id="saveLoadPanel" class="panel hidden">
+    <h2>Save Configuration</h2>
+
+    <div class="section">
+      <div class="section-row">
+        <div style="flex: 2;">
+          <input type="text" id="configName" placeholder="e.g., Period 1 Seating">
+        </div>
+        <div style="flex: 1;">
+          <button class="btn btn-primary btn-block" onclick="saveConfig()">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <h3>Saved Configurations</h3>
+    <div id="configList" class="config-list">
+      <div class="loading">
+        <div class="spinner"></div>
+        Loading...
+      </div>
+    </div>
+
+    <div class="section" style="margin-top: 20px;">
+      <button class="btn btn-secondary btn-block" onclick="exportChart()">Export to Sheet</button>
+    </div>
+  </div>
+
+  <script>
+    // ===================
+    // State
+    // ===================
+    let students = [];
+    let currentTemplate = null;
+    let templateOptions = { rows: 5, cols: 6 };
+    let seats = [];
+    let assignments = {};  // studentId -> seatId
+    let seatOccupants = {}; // seatId -> studentId
+
+    // ===================
+    // Template Definitions
+    // ===================
+    const TEMPLATES = {
+      'rows': {
+        name: 'Traditional Rows',
+        options: ['rows', 'cols'],
+        generate: function(opts) {
+          const seats = [];
+          const seatW = 52, seatH = 42, gapX = 6, gapY = 8;
+          for (let r = 0; r < opts.rows; r++) {
+            for (let c = 0; c < opts.cols; c++) {
+              seats.push({
+                id: 'seat-' + r + '-' + c,
+                row: r,
+                col: c,
+                x: c * (seatW + gapX) + 10,
+                y: r * (seatH + gapY) + 24
+              });
+            }
+          }
+          return seats;
+        }
+      },
+      'groups-4': {
+        name: 'Groups of 4',
+        options: ['rows', 'cols'],
+        generate: function(opts) {
+          const seats = [];
+          const numGroups = Math.ceil((opts.rows * opts.cols) / 4);
+          const groupsPerRow = 3;
+          const groupW = 110, groupH = 90;
+          let seatNum = 0;
+
+          for (let g = 0; g < numGroups; g++) {
+            const gRow = Math.floor(g / groupsPerRow);
+            const gCol = g % groupsPerRow;
+            const baseX = gCol * (groupW + 10) + 10;
+            const baseY = gRow * (groupH + 10) + 24;
+
+            for (let r = 0; r < 2; r++) {
+              for (let c = 0; c < 2; c++) {
+                seats.push({
+                  id: 'seat-' + seatNum++,
+                  group: g,
+                  row: gRow * 2 + r,
+                  col: gCol * 2 + c,
+                  x: baseX + c * 54,
+                  y: baseY + r * 44
+                });
+              }
+            }
+          }
+          return seats;
+        }
+      },
+      'u-shape': {
+        name: 'U-Shape',
+        options: ['rows', 'cols'],
+        generate: function(opts) {
+          const seats = [];
+          const seatsPerSide = Math.max(3, opts.rows);
+          const seatsAcross = Math.max(2, opts.cols - 2);
+          let seatNum = 0;
+          const seatH = 44;
+
+          // Left side
+          for (let i = 0; i < seatsPerSide; i++) {
+            seats.push({
+              id: 'seat-' + seatNum++,
+              row: i, col: 0,
+              x: 10,
+              y: i * seatH + 24
+            });
+          }
+
+          // Bottom
+          for (let i = 0; i < seatsAcross; i++) {
+            seats.push({
+              id: 'seat-' + seatNum++,
+              row: seatsPerSide - 1, col: i + 1,
+              x: 68 + i * 54,
+              y: (seatsPerSide - 1) * seatH + 24
+            });
+          }
+
+          // Right side
+          for (let i = seatsPerSide - 1; i >= 0; i--) {
+            seats.push({
+              id: 'seat-' + seatNum++,
+              row: i, col: seatsAcross + 1,
+              x: 68 + seatsAcross * 54,
+              y: i * seatH + 24
+            });
+          }
+
+          return seats;
+        }
+      },
+      'circle': {
+        name: 'Circle',
+        options: ['rows', 'cols'],
+        generate: function(opts) {
+          const seats = [];
+          const numSeats = opts.rows * opts.cols;
+          const centerX = 150;
+          const centerY = 130;
+          const radius = Math.min(centerX, centerY) - 30;
+
+          for (let i = 0; i < numSeats; i++) {
+            const angle = (i / numSeats) * 2 * Math.PI - Math.PI / 2;
+            seats.push({
+              id: 'seat-' + i,
+              row: 0, col: i,
+              x: centerX + radius * Math.cos(angle) - 24,
+              y: centerY + radius * Math.sin(angle) - 19
+            });
+          }
+          return seats;
+        }
+      },
+      'custom': {
+        name: 'Custom Grid',
+        options: ['rows', 'cols'],
+        generate: function(opts) {
+          return TEMPLATES['rows'].generate(opts);
+        }
+      }
+    };
+
+    // ===================
+    // Initialization
+    // ===================
+    document.addEventListener('DOMContentLoaded', function() {
+      loadColumnHeaders();
+    });
+
+    function loadColumnHeaders() {
+      google.script.run
+        .withSuccessHandler(function(headers) {
+          const select = document.getElementById('columnSelect');
+          select.innerHTML = '';
+
+          if (headers.length === 0) {
+            select.innerHTML = '<option value="">No columns found</option>';
+            return;
+          }
+
+          headers.forEach(function(header) {
+            const opt = document.createElement('option');
+            opt.value = header;
+            opt.textContent = header;
+            select.appendChild(opt);
+          });
+        })
+        .withFailureHandler(function(error) {
+          showStatus('Error loading columns: ' + error.message, 'error');
+        })
+        .getColumnHeaders();
+    }
+
+    // ===================
+    // Panel Navigation
+    // ===================
+    function showPanel(panelName) {
+      // Hide all panels
+      document.querySelectorAll('.panel').forEach(p => p.classList.add('hidden'));
+
+      // Deactivate all tabs
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+
+      // Show selected panel
+      document.getElementById(panelName + 'Panel').classList.remove('hidden');
+
+      // Activate tab
+      document.querySelector('[data-panel="' + panelName + '"]').classList.add('active');
+
+      // Load configs if on save/load panel
+      if (panelName === 'saveLoad') {
+        loadConfigList();
+      }
+    }
+
+    // ===================
+    // Status Messages
+    // ===================
+    function showStatus(message, type) {
+      const el = document.getElementById('statusMessage');
+      el.textContent = message;
+      el.className = 'status status-' + type;
+      el.classList.remove('hidden');
+
+      if (type !== 'error') {
+        setTimeout(function() {
+          el.classList.add('hidden');
+        }, 3000);
+      }
+    }
+
+    function hideStatus() {
+      document.getElementById('statusMessage').classList.add('hidden');
+    }
+
+    // ===================
+    // Roster Loading
+    // ===================
+    function loadRoster() {
+      const column = document.getElementById('columnSelect').value;
+      if (!column) {
+        showStatus('Please select a column', 'warning');
+        return;
+      }
+
+      showStatus('Loading students...', 'info');
+
+      google.script.run
+        .withSuccessHandler(function(data) {
+          students = data;
+          hideStatus();
+
+          if (students.length === 0) {
+            showStatus('No students found in column', 'warning');
+            return;
+          }
+
+          document.getElementById('studentCount').textContent = students.length;
+          document.getElementById('rosterPreview').classList.remove('hidden');
+
+          // Initialize assignments
+          assignments = {};
+          students.forEach(s => assignments[s.id] = null);
+        })
+        .withFailureHandler(function(error) {
+          showStatus('Error loading students: ' + error.message, 'error');
+        })
+        .getStudentsFromColumn(column);
+    }
+
+    // ===================
+    // Template Selection
+    // ===================
+    function selectTemplate(templateId) {
+      currentTemplate = templateId;
+
+      // Update UI
+      document.querySelectorAll('.template-btn').forEach(btn => {
+        btn.classList.toggle('selected', btn.dataset.template === templateId);
+      });
+
+      // Show options
+      document.getElementById('templateOptions').classList.remove('hidden');
+    }
+
+    function createChart() {
+      if (!currentTemplate) {
+        showStatus('Please select a template', 'warning');
+        return;
+      }
+
+      templateOptions = {
+        rows: parseInt(document.getElementById('rowsInput').value) || 5,
+        cols: parseInt(document.getElementById('colsInput').value) || 6
+      };
+
+      // Generate seats
+      seats = TEMPLATES[currentTemplate].generate(templateOptions);
+
+      // Reset assignments
+      assignments = {};
+      seatOccupants = {};
+      students.forEach(s => assignments[s.id] = null);
+      seats.forEach(s => seatOccupants[s.id] = null);
+
+      // Show editor
+      showPanel('editor');
+      renderSeatingChart();
+      renderUnassignedStudents();
+    }
+
+    function changeTemplate() {
+      showPanel('setup');
+    }
+
+    // ===================
+    // Rendering
+    // ===================
+    function renderSeatingChart() {
+      const canvas = document.getElementById('seatingCanvas');
+      canvas.innerHTML = '<div class="front-label">Front of Room</div>';
+
+      seats.forEach(function(seat) {
+        const el = document.createElement('div');
+        el.className = 'seat';
+        el.dataset.seatId = seat.id;
+        el.style.left = seat.x + 'px';
+        el.style.top = seat.y + 'px';
+
+        const occupantId = seatOccupants[seat.id];
+        if (occupantId) {
+          const student = students.find(s => s.id === occupantId);
+          el.textContent = student ? student.name : '';
+          el.classList.add('filled');
+          el.draggable = true;
+
+          // Make filled seats draggable
+          el.addEventListener('dragstart', handleSeatDragStart);
+          el.addEventListener('dragend', handleDragEnd);
+        } else {
+          el.classList.add('empty');
+        }
+
+        // Drop target
+        el.addEventListener('dragover', handleDragOver);
+        el.addEventListener('dragleave', handleDragLeave);
+        el.addEventListener('drop', handleDrop);
+
+        // Double-click to remove
+        el.addEventListener('dblclick', handleSeatDoubleClick);
+
+        canvas.appendChild(el);
+      });
+
+      // Adjust canvas size
+      let maxX = 0, maxY = 0;
+      seats.forEach(s => {
+        maxX = Math.max(maxX, s.x + 60);
+        maxY = Math.max(maxY, s.y + 50);
+      });
+      canvas.style.width = maxX + 'px';
+      canvas.style.height = maxY + 'px';
+    }
+
+    function renderUnassignedStudents() {
+      const list = document.getElementById('studentList');
+      list.innerHTML = '';
+
+      const unassigned = students.filter(s => !assignments[s.id]);
+      document.getElementById('unassignedCount').textContent = unassigned.length;
+
+      unassigned.forEach(function(student) {
+        const chip = document.createElement('div');
+        chip.className = 'student-chip';
+        chip.textContent = student.name;
+        chip.draggable = true;
+        chip.dataset.studentId = student.id;
+
+        chip.addEventListener('dragstart', handleChipDragStart);
+        chip.addEventListener('dragend', handleDragEnd);
+
+        list.appendChild(chip);
+      });
+    }
+
+    // ===================
+    // Drag and Drop
+    // ===================
+    let draggedStudentId = null;
+    let draggedFromSeatId = null;
+
+    function handleChipDragStart(e) {
+      draggedStudentId = e.target.dataset.studentId;
+      draggedFromSeatId = null;
+      e.target.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    }
+
+    function handleSeatDragStart(e) {
+      const seatId = e.target.dataset.seatId;
+      draggedStudentId = seatOccupants[seatId];
+      draggedFromSeatId = seatId;
+      e.target.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    }
+
+    function handleDragEnd(e) {
+      e.target.classList.remove('dragging');
+      draggedStudentId = null;
+      draggedFromSeatId = null;
+    }
+
+    function handleDragOver(e) {
+      e.preventDefault();
+      e.target.classList.add('drag-over');
+    }
+
+    function handleDragLeave(e) {
+      e.target.classList.remove('drag-over');
+    }
+
+    function handleDrop(e) {
+      e.preventDefault();
+      e.target.classList.remove('drag-over');
+
+      if (!draggedStudentId) return;
+
+      const targetSeatId = e.target.dataset.seatId;
+      const targetOccupant = seatOccupants[targetSeatId];
+
+      // If swapping with another student
+      if (targetOccupant && draggedFromSeatId) {
+        // Swap
+        seatOccupants[draggedFromSeatId] = targetOccupant;
+        assignments[targetOccupant] = draggedFromSeatId;
+      } else if (draggedFromSeatId) {
+        // Moving from seat to empty seat
+        seatOccupants[draggedFromSeatId] = null;
+      }
+
+      // If target was occupied and we're coming from pool, send to pool
+      if (targetOccupant && !draggedFromSeatId) {
+        assignments[targetOccupant] = null;
+      }
+
+      // Assign dragged student to target
+      seatOccupants[targetSeatId] = draggedStudentId;
+      assignments[draggedStudentId] = targetSeatId;
+
+      renderSeatingChart();
+      renderUnassignedStudents();
+    }
+
+    function handleSeatDoubleClick(e) {
+      const seatId = e.target.dataset.seatId;
+      const studentId = seatOccupants[seatId];
+
+      if (studentId) {
+        assignments[studentId] = null;
+        seatOccupants[seatId] = null;
+        renderSeatingChart();
+        renderUnassignedStudents();
+      }
+    }
+
+    // ===================
+    // Actions
+    // ===================
+    function randomizeSeating() {
+      // Fisher-Yates shuffle
+      const studentIds = students.map(s => s.id);
+      for (let i = studentIds.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [studentIds[i], studentIds[j]] = [studentIds[j], studentIds[i]];
+      }
+
+      // Clear
+      assignments = {};
+      seatOccupants = {};
+      students.forEach(s => assignments[s.id] = null);
+      seats.forEach(s => seatOccupants[s.id] = null);
+
+      // Assign
+      const count = Math.min(studentIds.length, seats.length);
+      for (let i = 0; i < count; i++) {
+        assignments[studentIds[i]] = seats[i].id;
+        seatOccupants[seats[i].id] = studentIds[i];
+      }
+
+      renderSeatingChart();
+      renderUnassignedStudents();
+      showStatus('Seating randomized!', 'success');
+    }
+
+    function clearSeating() {
+      assignments = {};
+      seatOccupants = {};
+      students.forEach(s => assignments[s.id] = null);
+      seats.forEach(s => seatOccupants[s.id] = null);
+
+      renderSeatingChart();
+      renderUnassignedStudents();
+      showStatus('All seats cleared', 'info');
+    }
+
+    // ===================
+    // Save/Load
+    // ===================
+    function saveConfig() {
+      const name = document.getElementById('configName').value.trim();
+      if (!name) {
+        showStatus('Please enter a configuration name', 'warning');
+        return;
+      }
+
+      const config = {
+        template: currentTemplate,
+        templateOptions: templateOptions,
+        students: students,
+        seats: seats,
+        assignments: assignments
+      };
+
+      google.script.run
+        .withSuccessHandler(function() {
+          showStatus('Configuration saved!', 'success');
+          document.getElementById('configName').value = '';
+          loadConfigList();
+        })
+        .withFailureHandler(function(error) {
+          showStatus('Error saving: ' + error.message, 'error');
+        })
+        .saveConfiguration(name, config);
+    }
+
+    function loadConfigList() {
+      const list = document.getElementById('configList');
+      list.innerHTML = '<div class="loading"><div class="spinner"></div>Loading...</div>';
+
+      google.script.run
+        .withSuccessHandler(function(configs) {
+          list.innerHTML = '';
+
+          if (configs.length === 0) {
+            list.innerHTML = '<div class="empty-state"><div class="empty-state-icon">&#128203;</div>No saved configurations</div>';
+            return;
+          }
+
+          configs.forEach(function(cfg) {
+            const date = new Date(cfg.lastModified).toLocaleDateString();
+            const item = document.createElement('div');
+            item.className = 'config-item';
+            item.innerHTML =
+              '<div class="config-info">' +
+                '<div class="config-name">' + cfg.name + '</div>' +
+                '<div class="config-date">' + date + '</div>' +
+              '</div>' +
+              '<div class="config-actions">' +
+                '<button class="btn btn-small btn-primary" onclick="loadConfig(\'' + cfg.name + '\')">Load</button>' +
+                '<button class="btn btn-small btn-danger" onclick="deleteConfig(\'' + cfg.name + '\')">Del</button>' +
+              '</div>';
+            list.appendChild(item);
+          });
+        })
+        .withFailureHandler(function(error) {
+          list.innerHTML = '<div class="status status-error">Error loading configs</div>';
+        })
+        .listConfigurations();
+    }
+
+    function loadConfig(name) {
+      google.script.run
+        .withSuccessHandler(function(config) {
+          if (!config) {
+            showStatus('Configuration not found', 'error');
+            return;
+          }
+
+          currentTemplate = config.template;
+          templateOptions = config.templateOptions;
+          students = config.students;
+          seats = config.seats;
+          assignments = config.assignments;
+
+          // Rebuild seatOccupants
+          seatOccupants = {};
+          seats.forEach(s => seatOccupants[s.id] = null);
+          Object.keys(assignments).forEach(studentId => {
+            const seatId = assignments[studentId];
+            if (seatId) seatOccupants[seatId] = studentId;
+          });
+
+          showPanel('editor');
+          renderSeatingChart();
+          renderUnassignedStudents();
+          showStatus('Configuration loaded!', 'success');
+        })
+        .withFailureHandler(function(error) {
+          showStatus('Error loading: ' + error.message, 'error');
+        })
+        .loadConfiguration(name);
+    }
+
+    function deleteConfig(name) {
+      if (!confirm('Delete "' + name + '"?')) return;
+
+      google.script.run
+        .withSuccessHandler(function() {
+          showStatus('Configuration deleted', 'info');
+          loadConfigList();
+        })
+        .withFailureHandler(function(error) {
+          showStatus('Error deleting: ' + error.message, 'error');
+        })
+        .deleteConfiguration(name);
+    }
+
+    function exportChart() {
+      if (!students.length || !seats.length) {
+        showStatus('Create a seating chart first', 'warning');
+        return;
+      }
+
+      const name = document.getElementById('configName').value.trim() || 'Seating Chart';
+
+      const data = {
+        students: students,
+        seats: seats,
+        assignments: assignments
+      };
+
+      showStatus('Exporting to sheet...', 'info');
+
+      google.script.run
+        .withSuccessHandler(function(sheetName) {
+          showStatus('Exported to sheet: ' + sheetName, 'success');
+        })
+        .withFailureHandler(function(error) {
+          showStatus('Error exporting: ' + error.message, 'error');
+        })
+        .exportToSheet(name, data);
+    }
+  </script>
+</body>
+</html>
