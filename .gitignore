@@ -1,0 +1,15 @@
+# Apps Script
+.clasp.json
+.claspignore
+
+# Editor
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Logs
+*.log
+
+# OS
+Thumbs.db
