@@ -53,18 +53,29 @@ A simple, elegant countdown timer that embeds directly into Google Slides presen
 ## Technical Details
 
 **Files:**
+
 - `Code.gs` - Apps Script backend (timer logic, menu creation)
 - `Sidebar.html` - HTML/CSS/JS frontend (UI and timer display)
 - `appsscript.json` - Manifest (permissions and metadata)
 
-**Permissions Required:**
-- Display and run third-party web content in prompts and sidebars
-- No access to your files or data
+**OAuth Scope:**
+
+- `https://www.googleapis.com/auth/presentations` — Required to display sidebar in Slides
+
+**Cloud Project:**
+
+This add-on has its own Google Cloud project (`classroom-timer`) separate from other Classroom Essentials add-ons. This ensures users only grant the permissions this specific tool needs.
 
 **Technologies:**
+
 - Google Apps Script (JavaScript)
 - HTML5/CSS3
 - Web Audio API (for alerts)
+
+**Costs:**
+
+- Free to run (Apps Script, no billable APIs)
+- $5 one-time Marketplace registration (covers all your apps)
 
 ## Development
 

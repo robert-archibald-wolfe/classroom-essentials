@@ -2,41 +2,71 @@
 
 How to deploy Classroom Essentials add-ons to Google Workspace Marketplace.
 
+## Architecture: One Cloud Project Per Add-on
+
+Each add-on gets its own Google Cloud project. This ensures:
+
+- **Minimal permissions** — Users only grant what each app needs
+- **Independent publishing** — Each add-on reviewed/approved separately
+- **Isolated risk** — Issues with one app don't affect others
+
+| Add-on | Cloud Project Name | OAuth Scope |
+| ------ | ------------------ | ----------- |
+| Classroom Timer | `classroom-timer` | `presentations` |
+| Random Student Picker | `student-picker` | `spreadsheets` |
+| Group Maker | `group-maker` | `spreadsheets` |
+| Seating Chart Generator | `seating-chart` | `spreadsheets`, `presentations` |
+
 ## Prerequisites
 
 1. **Google Account** with access to Google Cloud Platform
 2. **clasp CLI** installed: `npm install -g @google/clasp`
-3. **Google Cloud Project** created
-4. **OAuth Consent Screen** configured
+3. **One Google Cloud Project per add-on** (see above)
+
+## Costs
+
+- **Apps Script**: Free
+- **Google Cloud Project**: Free (no billable APIs used)
+- **Marketplace registration**: $5 one-time fee (covers all your apps)
 
 ## Setup Google Cloud Project
+
+Repeat these steps for each add-on you want to publish.
 
 ### 1. Create Project
 
 1. Go to [Google Cloud Console](https://console.cloud.google.com/)
 2. Click **Create Project**
-3. Name: "Classroom Essentials"
+3. Name it after the add-on (e.g., "Classroom Timer")
 4. Note the Project ID
 
 ### 2. Enable APIs
 
-Enable these APIs in your project:
-- Google Slides API (for Timer)
-- Google Sheets API (for Picker, Groups, Seating)
-- Google Classroom API (for roster imports)
+Enable only the APIs needed for this specific add-on:
+
+| Add-on | APIs to Enable |
+| ------ | -------------- |
+| Classroom Timer | Google Slides API |
+| Random Student Picker | Google Sheets API |
+| Group Maker | Google Sheets API |
+| Seating Chart Generator | Google Slides API, Google Sheets API |
 
 ### 3. Configure OAuth Consent Screen
 
 1. Go to **APIs & Services → OAuth consent screen**
 2. Choose **External** user type
 3. Fill in:
-   - App name: "Classroom Timer" (or add-on name)
-   - User support email: your email
-   - Developer contact: your email
-4. Add scopes:
-   - `https://www.googleapis.com/auth/presentations` (Timer)
-   - `https://www.googleapis.com/auth/spreadsheets` (Others)
+   - **App name**: The add-on name (e.g., "Classroom Timer")
+   - **User support email**: Your email
+   - **App logo**: 128x128 PNG (optional but recommended)
+   - **Application home page**: Your GitHub repo or website
+   - **Privacy policy link**: Required for publishing (see below)
+   - **Developer contact email**: Your email
+4. Add scopes — only what this add-on needs:
+   - Timer: `https://www.googleapis.com/auth/presentations`
+   - Sheets-based add-ons: `https://www.googleapis.com/auth/spreadsheets`
 5. Save and continue
+6. Add test users (your email and any testers)
 
 ## Deploy with clasp
 
@@ -213,13 +243,6 @@ If issues arise after deployment:
 3. Select previous version
 4. Update marketplace to point to old version
 5. Fix issues, redeploy when ready
-
-## Costs
-
-- **Apps Script**: Free (up to quota limits)
-- **Google Cloud Project**: Free tier sufficient
-- **Marketplace Listing**: One-time $5 developer fee
-- **Hosting**: $0 (runs on Google's infrastructure)
 
 ## Support
 
