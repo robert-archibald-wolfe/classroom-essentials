@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Reset and Base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
+      font-size: 14px;
+      color: #202124;
+      background: #fff;
+      padding: 16px;
+      line-height: 1.5;
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 16px;
+      color: #202124;
+    }
+
+    h3 {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: #5f6368;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: #5f6368;
+      margin-bottom: 4px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: #1967d2;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #1557b0;
+    }
+
+    .btn-secondary {
+      background: #f1f3f4;
+      color: #202124;
+    }
+
+    .btn-secondary:hover {
+      background: #e8eaed;
+    }
+
+    .btn-success {
+      background: #34a853;
+      color: white;
+    }
+
+    .btn-success:hover {
+      background: #2d9249;
+    }
+
+    .btn-small {
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+
+    .btn-block {
+      width: 100%;
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Form Elements */
+    select, input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 10px 12px;
+      border: 2px solid #e8eaed;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: border-color 0.2s ease;
+    }
+
+    select:focus, input:focus {
+      outline: none;
+      border-color: #1967d2;
+    }
+
+    input[type="number"] {
+      width: 80px;
+    }
+
+    /* Sections */
+    .section {
+      margin-bottom: 20px;
+    }
+
+    .section-row {
+      display: flex;
+      gap: 12px;
+      align-items: flex-end;
+    }
+
+    .section-row > div {
+      flex: 1;
+    }
+
+    /* Status Messages */
+    .status {
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+
+    .status-info {
+      background: #e8f0fe;
+      color: #1967d2;
+    }
+
+    .status-success {
+      background: #e6f4ea;
+      color: #137333;
+    }
+
+    .status-warning {
+      background: #fef7e0;
+      color: #b06000;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 12px;
+    }
+
+    .tab {
+      flex: 1;
+      padding: 10px;
+      background: #f1f3f4;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #5f6368;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tab:hover {
+      background: #e8eaed;
+    }
+
+    .tab.active {
+      background: #1967d2;
+      color: white;
+    }
+
+    /* Group Cards */
+    .groups-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 16px;
+      max-height: 350px;
+      overflow-y: auto;
+    }
+
+    .group-card {
+      background: #f8f9fa;
+      border-radius: 8px;
+      padding: 12px;
+      border-left: 4px solid #1967d2;
+    }
+
+    .group-card:nth-child(2) { border-left-color: #34a853; }
+    .group-card:nth-child(3) { border-left-color: #ea4335; }
+    .group-card:nth-child(4) { border-left-color: #fbbc04; }
+    .group-card:nth-child(5) { border-left-color: #9334e6; }
+    .group-card:nth-child(6) { border-left-color: #ff6d01; }
+    .group-card:nth-child(7) { border-left-color: #46bdc6; }
+    .group-card:nth-child(8) { border-left-color: #7baaf7; }
+
+    .group-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .group-title {
+      font-weight: 500;
+      font-size: 13px;
+      color: #202124;
+    }
+
+    .group-count {
+      font-size: 11px;
+      color: #5f6368;
+      background: white;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+
+    .group-members {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .member-chip {
+      padding: 4px 10px;
+      background: white;
+      border-radius: 12px;
+      font-size: 12px;
+      color: #202124;
+    }
+
+    /* Summary */
+    .summary {
+      background: #e8f0fe;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      font-size: 13px;
+      color: #1967d2;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Actions Row */
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .actions .btn {
+      flex: 1;
+      min-width: 70px;
+    }
+
+    /* Config List */
+    .config-list {
+      margin-top: 12px;
+    }
+
+    .config-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      background: #f8f9fa;
+      border-radius: 6px;
+      margin-bottom: 8px;
+    }
+
+    .config-info {
+      flex: 1;
+    }
+
+    .config-name {
+      font-weight: 500;
+      font-size: 13px;
+    }
+
+    .config-date {
+      font-size: 11px;
+      color: #5f6368;
+    }
+
+    .config-actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 30px 20px;
+      color: #5f6368;
+    }
+
+    .empty-state-icon {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    /* Loading */
+    .loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: #5f6368;
+    }
+
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid #e8eaed;
+      border-top-color: #1967d2;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-right: 10px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Status Message -->
+  <div id="statusMessage" class="status hidden"></div>
+
+  <!-- Panel 1: Setup -->
+  <div id="setupPanel" class="panel">
+    <h2>Group Maker</h2>
+
+    <div class="section">
+      <label for="columnSelect">Select column with student names</label>
+      <select id="columnSelect">
+        <option value="">Loading columns...</option>
+      </select>
+    </div>
+
+    <div class="section">
+      <button class="btn btn-primary btn-block" onclick="loadRoster()">Load Students</button>
+    </div>
+  </div>
+
+  <!-- Panel 2: Configure -->
+  <div id="configurePanel" class="panel hidden">
+    <div class="status status-info">
+      <strong id="studentCount">0</strong> students loaded
+    </div>
+
+    <div class="section">
+      <label>How do you want to create groups?</label>
+      <div class="tabs">
+        <button class="tab active" data-mode="bySize" onclick="setGroupMode('bySize')">By Group Size</button>
+        <button class="tab" data-mode="byCount" onclick="setGroupMode('byCount')">By # of Groups</button>
+      </div>
+    </div>
+
+    <div id="bySizeOptions" class="section">
+      <label for="groupSize">Students per group</label>
+      <input type="number" id="groupSize" value="4" min="2" max="10">
+    </div>
+
+    <div id="byCountOptions" class="section hidden">
+      <label for="groupCount">Number of groups</label>
+      <input type="number" id="groupCount" value="5" min="2" max="15">
+    </div>
+
+    <div class="section">
+      <button class="btn btn-primary btn-block" onclick="generateGroups()">Generate Groups</button>
+    </div>
+  </div>
+
+  <!-- Panel 3: Results -->
+  <div id="resultsPanel" class="panel hidden">
+    <div class="summary">
+      <div class="summary-row">
+        <span>Groups created:</span>
+        <strong id="summaryGroups">0</strong>
+      </div>
+      <div class="summary-row">
+        <span>Students per group:</span>
+        <strong id="summarySize">0</strong>
+      </div>
+    </div>
+
+    <div id="groupsContainer" class="groups-container"></div>
+
+    <div class="actions">
+      <button class="btn btn-secondary" onclick="shuffleGroups()">Shuffle</button>
+      <button class="btn btn-secondary" onclick="regenerateGroups()">Regenerate</button>
+      <button class="btn btn-success" onclick="exportGroups()">Export</button>
+    </div>
+
+    <div class="section" style="margin-top: 16px;">
+      <div class="section-row">
+        <div style="flex: 2;">
+          <input type="text" id="configName" placeholder="e.g., Lab Partners">
+        </div>
+        <div style="flex: 1;">
+          <button class="btn btn-primary btn-block btn-small" onclick="saveConfig()">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <h3>Saved Configurations</h3>
+    <div id="configList" class="config-list">
+      <div class="loading">
+        <div class="spinner"></div>
+        Loading...
+      </div>
+    </div>
+
+    <div class="section" style="margin-top: 16px;">
+      <button class="btn btn-secondary btn-block" onclick="changeSettings()">Change Settings</button>
+    </div>
+  </div>
+
+  <script>
+    // ===================
+    // State
+    // ===================
+    let students = [];
+    let groups = [];
+    let groupMode = 'bySize';
+
+    // ===================
+    // Initialization
+    // ===================
+    document.addEventListener('DOMContentLoaded', function() {
+      loadColumnHeaders();
+    });
+
+    function loadColumnHeaders() {
+      google.script.run
+        .withSuccessHandler(function(headers) {
+          const select = document.getElementById('columnSelect');
+          select.innerHTML = '';
+
+          if (headers.length === 0) {
+            select.innerHTML = '<option value="">No columns found</option>';
+            return;
+          }
+
+          headers.forEach(function(header) {
+            const opt = document.createElement('option');
+            opt.value = header;
+            opt.textContent = header;
+            select.appendChild(opt);
+          });
+        })
+        .withFailureHandler(function(error) {
+          showStatus('Error loading columns: ' + error.message, 'error');
+        })
+        .getColumnHeaders();
+    }
+
+    // ===================
+    // Status Messages
+    // ===================
+    function showStatus(message, type) {
+      const el = document.getElementById('statusMessage');
+      el.textContent = message;
+      el.className = 'status status-' + type;
+      el.classList.remove('hidden');
+
+      if (type !== 'error') {
+        setTimeout(function() {
+          el.classList.add('hidden');
+        }, 3000);
+      }
+    }
+
+    // ===================
+    // Panel Navigation
+    // ===================
+    function showPanel(panelName) {
+      document.querySelectorAll('.panel').forEach(p => p.classList.add('hidden'));
+      document.getElementById(panelName + 'Panel').classList.remove('hidden');
+    }
+
+    // ===================
+    // Roster Loading
+    // ===================
+    function loadRoster() {
+      const column = document.getElementById('columnSelect').value;
+      if (!column) {
+        showStatus('Please select a column', 'warning');
+        return;
+      }
+
+      showStatus('Loading students...', 'info');
+
+      google.script.run
+        .withSuccessHandler(function(data) {
+          students = data;
+
+          if (students.length === 0) {
+            showStatus('No students found in column', 'warning');
+            return;
+          }
+
+          document.getElementById('studentCount').textContent = students.length;
+          showPanel('configure');
+        })
+        .withFailureHandler(function(error) {
+          showStatus('Error loading students: ' + error.message, 'error');
+        })
+        .getStudentsFromColumn(column);
+    }
+
+    // ===================
+    // Group Mode
+    // ===================
+    function setGroupMode(mode) {
+      groupMode = mode;
+
+      document.querySelectorAll('.tab').forEach(t => {
+        t.classList.toggle('active', t.dataset.mode === mode);
+      });
+
+      document.getElementById('bySizeOptions').classList.toggle('hidden', mode !== 'bySize');
+      document.getElementById('byCountOptions').classList.toggle('hidden', mode !== 'byCount');
+    }
+
+    // ===================
+    // Group Generation
+    // ===================
+    function generateGroups() {
+      if (students.length === 0) {
+        showStatus('No students loaded', 'warning');
+        return;
+      }
+
+      // Shuffle students
+      const shuffled = [...students];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+
+      // Create groups
+      let numGroups, groupSize;
+
+      if (groupMode === 'bySize') {
+        groupSize = parseInt(document.getElementById('groupSize').value) || 4;
+        numGroups = Math.ceil(shuffled.length / groupSize);
+      } else {
+        numGroups = parseInt(document.getElementById('groupCount').value) || 5;
+        groupSize = Math.ceil(shuffled.length / numGroups);
+      }
+
+      groups = [];
+      for (let i = 0; i < numGroups; i++) {
+        groups.push([]);
+      }
+
+      // Distribute students evenly
+      shuffled.forEach((student, index) => {
+        const groupIndex = index % numGroups;
+        groups[groupIndex].push(student);
+      });
+
+      // Remove empty groups
+      groups = groups.filter(g => g.length > 0);
+
+      showPanel('results');
+      renderGroups();
+      loadConfigList();
+    }
+
+    function shuffleGroups() {
+      // Collect all students
+      const allStudents = groups.flat();
+
+      // Shuffle
+      for (let i = allStudents.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [allStudents[i], allStudents[j]] = [allStudents[j], allStudents[i]];
+      }
+
+      // Redistribute
+      const numGroups = groups.length;
+      groups = [];
+      for (let i = 0; i < numGroups; i++) {
+        groups.push([]);
+      }
+
+      allStudents.forEach((student, index) => {
+        const groupIndex = index % numGroups;
+        groups[groupIndex].push(student);
+      });
+
+      renderGroups();
+      showStatus('Groups shuffled!', 'success');
+    }
+
+    function regenerateGroups() {
+      showPanel('configure');
+    }
+
+    function changeSettings() {
+      showPanel('configure');
+    }
+
+    // ===================
+    // Rendering
+    // ===================
+    function renderGroups() {
+      const container = document.getElementById('groupsContainer');
+      container.innerHTML = '';
+
+      // Summary
+      const sizes = groups.map(g => g.length);
+      const minSize = Math.min(...sizes);
+      const maxSize = Math.max(...sizes);
+      const sizeText = minSize === maxSize ? minSize : minSize + '-' + maxSize;
+
+      document.getElementById('summaryGroups').textContent = groups.length;
+      document.getElementById('summarySize').textContent = sizeText;
+
+      // Group cards
+      groups.forEach((group, index) => {
+        const card = document.createElement('div');
+        card.className = 'group-card';
+
+        const header = document.createElement('div');
+        header.className = 'group-header';
+        header.innerHTML =
+          '<span class="group-title">Group ' + (index + 1) + '</span>' +
+          '<span class="group-count">' + group.length + ' members</span>';
+
+        const members = document.createElement('div');
+        members.className = 'group-members';
+
+        group.forEach(student => {
+          const chip = document.createElement('span');
+          chip.className = 'member-chip';
+          chip.textContent = student.name;
+          members.appendChild(chip);
+        });
+
+        card.appendChild(header);
+        card.appendChild(members);
+        container.appendChild(card);
+      });
+    }
+
+    // ===================
+    // Save/Load
+    // ===================
+    function saveConfig() {
+      const name = document.getElementById('configName').value.trim();
+      if (!name) {
+        showStatus('Please enter a name', 'warning');
+        return;
+      }
+
+      const config = {
+        students: students,
+        groups: groups,
+        groupMode: groupMode,
+        groupSize: parseInt(document.getElementById('groupSize').value),
+        groupCount: parseInt(document.getElementById('groupCount').value)
+      };
+
+      google.script.run
+        .withSuccessHandler(function() {
+          showStatus('Configuration saved!', 'success');
+          document.getElementById('configName').value = '';
+          loadConfigList();
+        })
+        .withFailureHandler(function(error) {
+          showStatus('Error saving: ' + error.message, 'error');
+        })
+        .saveGroupConfiguration(name, config);
+    }
+
+    function loadConfigList() {
+      const list = document.getElementById('configList');
+      list.innerHTML = '<div class="loading"><div class="spinner"></div>Loading...</div>';
+
+      google.script.run
+        .withSuccessHandler(function(configs) {
+          list.innerHTML = '';
+
+          if (configs.length === 0) {
+            list.innerHTML = '<div class="empty-state"><div class="empty-state-icon">&#128203;</div>No saved configurations</div>';
+            return;
+          }
+
+          configs.forEach(function(cfg) {
+            const date = new Date(cfg.lastModified).toLocaleDateString();
+            const item = document.createElement('div');
+            item.className = 'config-item';
+            item.innerHTML =
+              '<div class="config-info">' +
+                '<div class="config-name">' + cfg.name + '</div>' +
+                '<div class="config-date">' + date + '</div>' +
+              '</div>' +
+              '<div class="config-actions">' +
+                '<button class="btn btn-small btn-primary" onclick="loadConfig(\'' + cfg.name + '\')">Load</button>' +
+                '<button class="btn btn-small btn-secondary" onclick="deleteConfig(\'' + cfg.name + '\')">Del</button>' +
+              '</div>';
+            list.appendChild(item);
+          });
+        })
+        .withFailureHandler(function(error) {
+          list.innerHTML = '<div class="empty-state">Error loading configs</div>';
+        })
+        .listGroupConfigurations();
+    }
+
+    function loadConfig(name) {
+      google.script.run
+        .withSuccessHandler(function(config) {
+          if (!config) {
+            showStatus('Configuration not found', 'error');
+            return;
+          }
+
+          students = config.students;
+          groups = config.groups;
+          groupMode = config.groupMode;
+
+          document.getElementById('groupSize').value = config.groupSize;
+          document.getElementById('groupCount').value = config.groupCount;
+
+          showPanel('results');
+          renderGroups();
+          showStatus('Configuration loaded!', 'success');
+        })
+        .withFailureHandler(function(error) {
+          showStatus('Error loading: ' + error.message, 'error');
+        })
+        .loadGroupConfiguration(name);
+    }
+
+    function deleteConfig(name) {
+      if (!confirm('Delete "' + name + '"?')) return;
+
+      google.script.run
+        .withSuccessHandler(function() {
+          showStatus('Configuration deleted', 'info');
+          loadConfigList();
+        })
+        .withFailureHandler(function(error) {
+          showStatus('Error deleting: ' + error.message, 'error');
+        })
+        .deleteGroupConfiguration(name);
+    }
+
+    // ===================
+    // Export
+    // ===================
+    function exportGroups() {
+      const name = document.getElementById('configName').value.trim() || 'Class Groups';
+
+      showStatus('Exporting to sheet...', 'info');
+
+      google.script.run
+        .withSuccessHandler(function(sheetName) {
+          showStatus('Exported to: ' + sheetName, 'success');
+        })
+        .withFailureHandler(function(error) {
+          showStatus('Error exporting: ' + error.message, 'error');
+        })
+        .exportGroupsToSheet(name, groups);
+    }
+  </script>
+</body>
+</html>

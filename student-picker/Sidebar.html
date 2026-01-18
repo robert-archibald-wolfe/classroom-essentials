@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Reset and Base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
+      font-size: 14px;
+      color: #202124;
+      background: #fff;
+      padding: 16px;
+      line-height: 1.5;
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 16px;
+      color: #202124;
+    }
+
+    h3 {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: #5f6368;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: #5f6368;
+      margin-bottom: 4px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: #1967d2;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #1557b0;
+    }
+
+    .btn-secondary {
+      background: #f1f3f4;
+      color: #202124;
+    }
+
+    .btn-secondary:hover {
+      background: #e8eaed;
+    }
+
+    .btn-large {
+      padding: 16px 32px;
+      font-size: 16px;
+      border-radius: 8px;
+    }
+
+    .btn-block {
+      width: 100%;
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Form Elements */
+    select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 2px solid #e8eaed;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: border-color 0.2s ease;
+    }
+
+    select:focus {
+      outline: none;
+      border-color: #1967d2;
+    }
+
+    /* Sections */
+    .section {
+      margin-bottom: 20px;
+    }
+
+    /* Status Messages */
+    .status {
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+
+    .status-info {
+      background: #e8f0fe;
+      color: #1967d2;
+    }
+
+    .status-success {
+      background: #e6f4ea;
+      color: #137333;
+    }
+
+    .status-warning {
+      background: #fef7e0;
+      color: #b06000;
+    }
+
+    /* Spinner Display */
+    .spinner-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 20px;
+      margin-bottom: 20px;
+    }
+
+    .spinner-display {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #e8f0fe 0%, #d2e3fc 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(25, 103, 210, 0.15);
+    }
+
+    .spinner-display.spinning {
+      animation: pulse 0.3s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
+    .spinner-name {
+      font-size: 20px;
+      font-weight: 500;
+      color: #1967d2;
+      text-align: center;
+      padding: 20px;
+      word-break: break-word;
+    }
+
+    .spinner-name.cycling {
+      animation: fadeInOut 0.15s ease-in-out;
+    }
+
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .spinner-instruction {
+      font-size: 14px;
+      color: #5f6368;
+      text-align: center;
+    }
+
+    /* Progress Bar */
+    .progress-container {
+      margin-bottom: 20px;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #5f6368;
+      margin-bottom: 6px;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: #e8eaed;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: #1967d2;
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+
+    .progress-fill.complete {
+      background: #34a853;
+    }
+
+    /* History List */
+    .history-list {
+      max-height: 200px;
+      overflow-y: auto;
+      border: 1px solid #e8eaed;
+      border-radius: 6px;
+    }
+
+    .history-item {
+      display: flex;
+      align-items: center;
+      padding: 10px 12px;
+      border-bottom: 1px solid #e8eaed;
+    }
+
+    .history-item:last-child {
+      border-bottom: none;
+    }
+
+    .history-number {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #e8f0fe;
+      color: #1967d2;
+      font-size: 11px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+
+    .history-name {
+      flex: 1;
+      font-size: 13px;
+    }
+
+    .history-time {
+      font-size: 11px;
+      color: #9aa0a6;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 30px 20px;
+      color: #5f6368;
+    }
+
+    .empty-state-icon {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    /* Options */
+    .option-row {
+      display: flex;
+      align-items: center;
+      padding: 8px 0;
+    }
+
+    .option-row input[type="checkbox"] {
+      margin-right: 10px;
+    }
+
+    .option-label {
+      font-size: 13px;
+      color: #202124;
+    }
+  </style>
+</head>
+<body>
+  <!-- Status Message -->
+  <div id="statusMessage" class="status hidden"></div>
+
+  <!-- Panel 1: Setup -->
+  <div id="setupPanel" class="panel">
+    <h2>Random Student Picker</h2>
+
+    <div class="section">
+      <label for="columnSelect">Select column with student names</label>
+      <select id="columnSelect">
+        <option value="">Loading columns...</option>
+      </select>
+    </div>
+
+    <div class="section">
+      <button class="btn btn-primary btn-block" onclick="loadRoster()">Load Students</button>
+    </div>
+  </div>
+
+  <!-- Panel 2: Picker -->
+  <div id="pickerPanel" class="panel hidden">
+    <!-- Progress -->
+    <div class="progress-container">
+      <div class="progress-label">
+        <span>Participation</span>
+        <span><span id="calledCount">0</span> / <span id="totalCount">0</span> called</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <!-- Spinner -->
+    <div class="spinner-container">
+      <div class="spinner-display" id="spinnerDisplay">
+        <div class="spinner-name" id="spinnerName">?</div>
+      </div>
+      <div class="spinner-instruction" id="spinnerInstruction">Click the button to pick a student</div>
+    </div>
+
+    <!-- Pick Button -->
+    <div class="section">
+      <button class="btn btn-primary btn-large btn-block" id="pickButton" onclick="pickStudent()">
+        Pick a Student
+      </button>
+    </div>
+
+    <!-- Options -->
+    <div class="section">
+      <div class="option-row">
+        <input type="checkbox" id="noRepeats" checked>
+        <label class="option-label" for="noRepeats">No repeats until everyone is called</label>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="section" style="display: flex; gap: 8px;">
+      <button class="btn btn-secondary" style="flex: 1;" onclick="resetPicks()">Reset</button>
+      <button class="btn btn-secondary" style="flex: 1;" onclick="changeRoster()">Change Roster</button>
+    </div>
+
+    <!-- History -->
+    <div class="section">
+      <h3>Pick History</h3>
+      <div id="historyList" class="history-list">
+        <div class="empty-state">
+          <div class="empty-state-icon">&#128203;</div>
+          No picks yet
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===================
+    // State
+    // ===================
+    let students = [];
+    let called = [];
+    let history = [];
+    let isSpinning = false;
+
+    // ===================
+    // Initialization
+    // ===================
+    document.addEventListener('DOMContentLoaded', function() {
+      loadColumnHeaders();
+    });
+
+    function loadColumnHeaders() {
+      google.script.run
+        .withSuccessHandler(function(headers) {
+          const select = document.getElementById('columnSelect');
+          select.innerHTML = '';
+
+          if (headers.length === 0) {
+            select.innerHTML = '<option value="">No columns found</option>';
+            return;
+          }
+
+          headers.forEach(function(header) {
+            const opt = document.createElement('option');
+            opt.value = header;
+            opt.textContent = header;
+            select.appendChild(opt);
+          });
+        })
+        .withFailureHandler(function(error) {
+          showStatus('Error loading columns: ' + error.message, 'error');
+        })
+        .getColumnHeaders();
+    }
+
+    // ===================
+    // Status Messages
+    // ===================
+    function showStatus(message, type) {
+      const el = document.getElementById('statusMessage');
+      el.textContent = message;
+      el.className = 'status status-' + type;
+      el.classList.remove('hidden');
+
+      setTimeout(function() {
+        el.classList.add('hidden');
+      }, 3000);
+    }
+
+    // ===================
+    // Roster Loading
+    // ===================
+    function loadRoster() {
+      const column = document.getElementById('columnSelect').value;
+      if (!column) {
+        showStatus('Please select a column', 'warning');
+        return;
+      }
+
+      showStatus('Loading students...', 'info');
+
+      google.script.run
+        .withSuccessHandler(function(data) {
+          students = data;
+
+          if (students.length === 0) {
+            showStatus('No students found in column', 'warning');
+            return;
+          }
+
+          // Load participation state
+          google.script.run
+            .withSuccessHandler(function(participation) {
+              called = participation.called || [];
+              history = participation.history || [];
+
+              showPanel('picker');
+              updateProgress();
+              renderHistory();
+            })
+            .withFailureHandler(function() {
+              called = [];
+              history = [];
+              showPanel('picker');
+              updateProgress();
+              renderHistory();
+            })
+            .getParticipationState();
+        })
+        .withFailureHandler(function(error) {
+          showStatus('Error loading students: ' + error.message, 'error');
+        })
+        .getStudentsFromColumn(column);
+    }
+
+    function changeRoster() {
+      showPanel('setup');
+    }
+
+    // ===================
+    // Panel Navigation
+    // ===================
+    function showPanel(panelName) {
+      document.querySelectorAll('.panel').forEach(p => p.classList.add('hidden'));
+      document.getElementById(panelName + 'Panel').classList.remove('hidden');
+    }
+
+    // ===================
+    // Progress
+    // ===================
+    function updateProgress() {
+      const total = students.length;
+      const calledCount = called.filter(id => students.some(s => s.id === id)).length;
+      const percent = total > 0 ? (calledCount / total) * 100 : 0;
+
+      document.getElementById('calledCount').textContent = calledCount;
+      document.getElementById('totalCount').textContent = total;
+
+      const fill = document.getElementById('progressFill');
+      fill.style.width = percent + '%';
+      fill.classList.toggle('complete', percent >= 100);
+    }
+
+    // ===================
+    // Student Picker
+    // ===================
+    function pickStudent() {
+      if (isSpinning) return;
+
+      const noRepeats = document.getElementById('noRepeats').checked;
+      let pool = students;
+
+      if (noRepeats) {
+        pool = students.filter(s => !called.includes(s.id));
+
+        // If everyone has been called, reset
+        if (pool.length === 0) {
+          called = [];
+          pool = students;
+          showStatus('Everyone was called! Starting fresh.', 'info');
+        }
+      }
+
+      if (pool.length === 0) {
+        showStatus('No students available', 'warning');
+        return;
+      }
+
+      // Start spinning animation
+      isSpinning = true;
+      const spinnerDisplay = document.getElementById('spinnerDisplay');
+      const spinnerName = document.getElementById('spinnerName');
+      const instruction = document.getElementById('spinnerInstruction');
+      const pickButton = document.getElementById('pickButton');
+
+      spinnerDisplay.classList.add('spinning');
+      spinnerName.classList.add('cycling');
+      instruction.textContent = 'Picking...';
+      pickButton.disabled = true;
+
+      // Cycle through names
+      let cycleCount = 0;
+      const totalCycles = 20;
+      const cycleInterval = setInterval(function() {
+        const randomStudent = pool[Math.floor(Math.random() * pool.length)];
+        spinnerName.textContent = randomStudent.name;
+        cycleCount++;
+
+        if (cycleCount >= totalCycles) {
+          clearInterval(cycleInterval);
+
+          // Final pick
+          const picked = pool[Math.floor(Math.random() * pool.length)];
+          spinnerName.textContent = picked.name;
+          spinnerName.classList.remove('cycling');
+          spinnerDisplay.classList.remove('spinning');
+          instruction.textContent = 'Selected!';
+          pickButton.disabled = false;
+          isSpinning = false;
+
+          // Record the pick
+          if (!called.includes(picked.id)) {
+            called.push(picked.id);
+          }
+
+          history.unshift({
+            id: picked.id,
+            name: picked.name,
+            time: new Date().toISOString()
+          });
+
+          // Save to backend
+          google.script.run.markStudentCalled(picked.id, picked.name);
+
+          updateProgress();
+          renderHistory();
+        }
+      }, 80);
+    }
+
+    // ===================
+    // History
+    // ===================
+    function renderHistory() {
+      const list = document.getElementById('historyList');
+
+      if (history.length === 0) {
+        list.innerHTML = '<div class="empty-state"><div class="empty-state-icon">&#128203;</div>No picks yet</div>';
+        return;
+      }
+
+      list.innerHTML = '';
+      history.slice(0, 20).forEach(function(item, index) {
+        const time = new Date(item.time);
+        const timeStr = time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        const div = document.createElement('div');
+        div.className = 'history-item';
+        div.innerHTML =
+          '<div class="history-number">' + (index + 1) + '</div>' +
+          '<div class="history-name">' + item.name + '</div>' +
+          '<div class="history-time">' + timeStr + '</div>';
+        list.appendChild(div);
+      });
+    }
+
+    // ===================
+    // Reset
+    // ===================
+    function resetPicks() {
+      if (!confirm('Reset participation tracking? This will allow all students to be picked again.')) {
+        return;
+      }
+
+      called = [];
+      history = [];
+
+      google.script.run
+        .withSuccessHandler(function() {
+          updateProgress();
+          renderHistory();
+          document.getElementById('spinnerName').textContent = '?';
+          document.getElementById('spinnerInstruction').textContent = 'Click the button to pick a student';
+          showStatus('Participation reset!', 'success');
+        })
+        .resetParticipation();
+    }
+  </script>
+</body>
+</html>
