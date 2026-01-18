@@ -66,4 +66,4 @@ MIT License - See LICENSE file for details
 
 ## Author
 
-Built with ❤️ for teachers everywhere
+Built with ❤️ for teachers everywhere by Rob Wolfe
