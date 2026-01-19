@@ -1,0 +1,26 @@
+{
+  "timeZone": "America/New_York",
+  "dependencies": {},
+  "exceptionLogging": "STACKDRIVER",
+  "runtimeVersion": "V8",
+  "oauthScopes": [
+    "https://www.googleapis.com/auth/presentations"
+  ],
+  "addOns": {
+    "common": {
+      "name": "Station Rotation Timer",
+      "logoUrl": "https://www.gstatic.com/images/branding/product/1x/slides_48dp.png",
+      "layoutProperties": {
+        "primaryColor": "#ea4335"
+      },
+      "homepageTrigger": {
+        "runFunction": "showStationTimer"
+      }
+    },
+    "slides": {
+      "onFileScopeGrantedTrigger": {
+        "runFunction": "onOpen"
+      }
+    }
+  }
+}

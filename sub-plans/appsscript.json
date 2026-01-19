@@ -1,0 +1,26 @@
+{
+  "timeZone": "America/New_York",
+  "dependencies": {},
+  "exceptionLogging": "STACKDRIVER",
+  "runtimeVersion": "V8",
+  "oauthScopes": [
+    "https://www.googleapis.com/auth/documents"
+  ],
+  "addOns": {
+    "common": {
+      "name": "Sub Plans Template",
+      "logoUrl": "https://www.gstatic.com/images/branding/product/1x/docs_48dp.png",
+      "layoutProperties": {
+        "primaryColor": "#4285f4"
+      },
+      "homepageTrigger": {
+        "runFunction": "showSubPlansSidebar"
+      }
+    },
+    "docs": {
+      "onFileScopeGrantedTrigger": {
+        "runFunction": "onOpen"
+      }
+    }
+  }
+}

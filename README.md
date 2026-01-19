@@ -4,30 +4,31 @@ Free Google Workspace add-ons for teachers. Simple, powerful tools that work whe
 
 ## Tools
 
-### 1. Classroom Timer (Google Slides Add-on)
+### Ready to Use
 
-Embeddable countdown timer directly in your presentations. Perfect for activities, transitions, and time management.
+| Add-on | App | Description | Status |
+|--------|-----|-------------|--------|
+| [Classroom Timer](timer-addon/) | Slides | Countdown timer with presets, pause/resume | v1.0 |
+| [Seating Chart](seating-chart/) | Sheets | Drag-and-drop seating with templates | v1.0 |
+| [Student Picker](student-picker/) | Sheets | Random picker with participation tracking | v1.0 |
+| [Group Maker](group-maker/) | Sheets | Random groups by size or count | v1.0 |
 
-**Features:**
-- Preset times: 5min, 10min, 15min, custom
-- Visual progress bar with percentage
-- Sound alerts when time is up
-- Pause/resume functionality
-- Clean, distraction-free interface
+### Coming Soon
 
-**Status:** ✅ In Development
-
-### 2. Random Student Picker (Coming Soon)
-
-Fairly pick students with participation tracking.
-
-### 3. Group Maker (Coming Soon)
-
-Generate balanced random groups in seconds.
-
-### 4. Seating Chart Generator (Coming Soon)
-
-Visual seating charts with drag-and-drop.
+| Add-on | App | Description |
+|--------|-----|-------------|
+| [Exit Ticket](exit-ticket/) | Slides | Quick polls to check understanding |
+| [Countdown Overlay](countdown-overlay/) | Slides | Full-screen timer overlay |
+| [Noise Meter](noise-meter/) | Slides | Visual noise level indicator |
+| [Task Checklist](task-checklist/) | Slides | Student-facing task display |
+| [Attendance Tracker](attendance-tracker/) | Sheets | Quick daily attendance |
+| [Parking Lot](parking-lot/) | Slides | Digital questions board |
+| [Learning Objectives](learning-objectives/) | Slides | Formatted objectives generator |
+| [Rubric Builder](rubric-builder/) | Sheets | Create and apply rubrics |
+| [Station Rotation](station-rotation/) | Slides | Multi-timer for stations |
+| [Discussion Tracker](discussion-tracker/) | Sheets | Track participation equity |
+| [Sub Plans](sub-plans/) | Docs | Substitute teacher instructions |
+| [Parent Contact Log](parent-contact-log/) | Sheets | Track parent communications |
 
 ## Why Classroom Essentials?
 
@@ -53,21 +54,24 @@ Each add-on is an **independent project** with its own Google Cloud project, OAu
 
 ```text
 classroom-essentials/
-├── timer-addon/          # Classroom Timer (own Cloud project)
-├── student-picker/       # Random Student Picker (own Cloud project)
-├── group-maker/          # Group Maker (own Cloud project)
-├── seating-chart/        # Seating Chart Generator (own Cloud project)
+├── timer-addon/          # Classroom Timer
+├── seating-chart/        # Seating Chart Generator
+├── student-picker/       # Random Student Picker
+├── group-maker/          # Group Maker
+├── exit-ticket/          # Exit Ticket
+├── countdown-overlay/    # Countdown Overlay
+├── noise-meter/          # Noise Meter
+├── task-checklist/       # Task Checklist
+├── attendance-tracker/   # Attendance Tracker
+├── parking-lot/          # Parking Lot
+├── learning-objectives/  # Learning Objectives
+├── rubric-builder/       # Rubric Builder
+├── station-rotation/     # Station Rotation Timer
+├── discussion-tracker/   # Discussion Tracker
+├── sub-plans/            # Sub Plans Template
+├── parent-contact-log/   # Parent Contact Log
 └── docs/                 # Shared documentation
 ```
-
-### Add-ons & OAuth Scopes
-
-| Add-on | Google App | OAuth Scope |
-|--------|------------|-------------|
-| Classroom Timer | Slides | `presentations` |
-| Random Student Picker | Sheets | `spreadsheets` |
-| Group Maker | Sheets | `spreadsheets` |
-| Seating Chart Generator | Sheets/Slides | `spreadsheets`, `presentations` |
 
 ### Costs
 
@@ -78,9 +82,9 @@ classroom-essentials/
 ## Tech Stack
 
 - **Google Apps Script** (JavaScript)
-- **Google Slides API** (Timer, Seating Chart)
-- **Google Sheets API** (Picker, Groups, Seating)
-- **Google Classroom API** (Roster integration, future)
+- **Google Slides API** (presentation add-ons)
+- **Google Sheets API** (spreadsheet add-ons)
+- **Google Docs API** (document add-ons)
 
 ## Contributing
 
@@ -92,4 +96,4 @@ MIT License - See LICENSE file for details
 
 ## Author
 
-Built with ❤️ for teachers everywhere by Rob Wolfe
+Built with love for teachers everywhere by Rob Wolfe
